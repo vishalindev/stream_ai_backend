@@ -1,22 +1,18 @@
 # Stream AI Backend (FastAPI)
 
-FastAPI scaffold implementing your listed service routes with:
-- JWT bearer authentication (`/auth/token`)
-- Global rate limiting via `slowapi`
-- Redis caching for GET/FETCH endpoints
+Refactored to a domain-driven `src/` layout with separate module routes/controllers/services.
+
+## Structure
+- `src/core`: shared config, middleware, utils, database bootstrap.
+- `src/modules`: identity, camera, zone, notification, dashboard domains.
+
+## Features
+- JWT auth: `POST /auth/token`
+- Global rate limiting: `slowapi`
+- Redis cache for read-heavy endpoints
 
 ## Run
 ```bash
-python -m venv .venv
-source .venv/bin/activate
 pip install -r requirements.txt
-uvicorn app.main:app --reload
+uvicorn src.main:app --reload
 ```
-
-Default login:
-- username: `admin`
-- password: `admin123`
-
-## Notes
-- This is a scaffold. Replace in-memory auth and placeholder handlers with DB-backed logic.
-- Query params like `PageNumber`/`PageSize` are accepted by endpoints and can be read in handler implementations.
